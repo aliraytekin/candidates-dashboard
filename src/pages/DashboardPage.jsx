@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react"
 import { getCandidates } from "../services/dataService";
 import CandidatesList from "../components/Candidates/CandidatesList";
+import FiltersPanel from "../components/Filters/FiltersPanel"
+import useFilters from "../hooks/useFilters"
+import FilterAndSort from "../utils/FilterAndSort";
 
 function DashboardPage() {
-  console.log(getCandidates)
-  const [candidates, setCandidates] = useState()
+  const [candidates, setCandidates] = useState();
+  const filters = useFilters()
 
-  const candidatesList = useEffect(() => {
+  useEffect(() => {
     getCandidates().then(setCandidates);
   }, []);
 
-
+  const filtered = FilterAndSort(candidates, filters);
 
   return (
     <div style={{
       display: "flex"
     }}>
-      <CandidatesList candidates={candidatesList} />
+      <FiltersPanel filters={filters} style={{ height: "100%" }} />
+      <CandidatesList candidates={filtered} />
     </div>
   )
 }

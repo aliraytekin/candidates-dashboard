@@ -1,6 +1,10 @@
+import { Typography } from "@mui/material"
+
 function EmptyState() {
   return (
-    <div>EmptyState</div>
+    <div style={{ padding: "2rem", textAlign: "center" }}>
+      <Typography variant="h6">No candidates found!</Typography>
+    </div>
   )
 }
 
