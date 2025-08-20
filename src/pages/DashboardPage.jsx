@@ -10,27 +10,27 @@ function DashboardPage() {
   const [loading, setLoading] = useState(false)
   const filters = useFilters()
 
+  const params = {
+    q: filters.q || undefined,
+    location: filters.location || undefined,
+    min_exp: filters.minExp ?? undefined,
+    max_exp: filters.maxExp ?? undefined,
+    skills: filters.skills?.join(",") || undefined,
+    availability: filters.availability || undefined,
+    languages: filters.languages?.join(",") || undefined,
+    sort: filters.sortBy || undefined,
+    }
+
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
-
-    const params = {
-      q: filters.q || undefined,
-      location: filters.location || undefined,
-      min_exp: filters.minExp ?? undefined,
-      max_exp: filters.maxExp ?? undefined,
-      skills: filters.skills?.join(",") || undefined,
-      availability: filters.availability || undefined,
-      languages: filters.languages?.join(",") || undefined,
-      sort: filters.sortBy || undefined,
-    }
 
     getCandidates(params)
       .then(setCandidates)
       .finally(() => setLoading(false));
 
     return() => controller.abort();
-  }, [filters]);
+  }, [JSON.stringify(params)]);
 
   const filtered = FilterAndSort(candidates, filters);
 

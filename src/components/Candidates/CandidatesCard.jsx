@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography, Chip, Grid } from "@mui/material"
+import { Card, CardContent, Typography, Chip } from "@mui/material"
 
 function CandidatesCard({ candidate }) {
   return (
