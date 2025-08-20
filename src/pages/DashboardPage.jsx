@@ -19,7 +19,7 @@ function DashboardPage() {
     availability: filters.availability || undefined,
     languages: filters.languages?.join(",") || undefined,
     sort: filters.sortBy || undefined,
-    }
+  }
 
   useEffect(() => {
     const controller = new AbortController();

@@ -1,4 +1,3 @@
-// src/components/Filters/FiltersPanel.jsx
 import {
   Box,
   TextField,
