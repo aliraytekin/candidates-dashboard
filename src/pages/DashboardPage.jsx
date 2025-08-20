@@ -7,11 +7,30 @@ import FilterAndSort from "../utils/FilterAndSort";
 
 function DashboardPage() {
   const [candidates, setCandidates] = useState();
+  const [loading, setLoading] = useState(false)
   const filters = useFilters()
 
   useEffect(() => {
-    getCandidates().then(setCandidates);
-  }, []);
+    const controller = new AbortController();
+    setLoading(true);
+
+    const params = {
+      q: filters.q || undefined,
+      location: filters.location || undefined,
+      min_exp: filters.minExp ?? undefined,
+      max_exp: filters.maxExp ?? undefined,
+      skills: filters.skills?.join(",") || undefined,
+      availability: filters.availability || undefined,
+      languages: filters.languages?.join(",") || undefined,
+      sort: filters.sortBy || undefined,
+    }
+
+    getCandidates(params)
+      .then(setCandidates)
+      .finally(() => setLoading(false));
+
+    return() => controller.abort();
+  }, [filters]);
 
   const filtered = FilterAndSort(candidates, filters);
 
@@ -19,7 +38,7 @@ function DashboardPage() {
     <div style={{
       display: "flex"
     }}>
-      <FiltersPanel filters={filters} style={{ height: "100%" }} />
+      <FiltersPanel filters={filters} />
       <CandidatesList candidates={filtered} />
     </div>
   )

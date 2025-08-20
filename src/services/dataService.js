@@ -1,5 +1,11 @@
-import candidates from "../data/Candidates.json"
+import axios from "axios"
 
-export async function getCandidates() {
-  return candidates;
+const api = axios.create({
+  baseURL: process.env.REACT_API_URL || "http://localhost:3000",
+  timeout: 8000,
+})
+
+export async function getCandidates(params = {}) {
+  const { data } = await api.get("/api/v1/candidates", { params });
+  return data.candidates;
 }
