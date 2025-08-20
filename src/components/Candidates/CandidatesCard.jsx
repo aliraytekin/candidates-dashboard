@@ -18,7 +18,7 @@ function CandidatesCard({ candidate }) {
         <Typography variant="h6" color="text.primary">{candidate.name}</Typography>
         <Typography variant="subtitle1" color="text.secondary">{candidate.title}</Typography>
         <Typography variant="body2">{candidate.location}</Typography>
-        <Typography variant="body2">{candidate.yearsExp} years experience</Typography>
+        <Typography variant="body2">{candidate.years_exp} years experience</Typography>
 
         <div style={{marginTop: "0.5rem", display: "flex", gap: "0.5rem" }}>
           {candidate.skills?.map((skill) => (
